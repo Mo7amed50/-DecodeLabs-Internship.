@@ -1,5 +1,6 @@
 """DecodeLabs Project 1: Rule-Based AI Chatbot."""
 
+import argparse
 import re
 import sys
 
@@ -21,27 +22,50 @@ def normalize(raw: str) -> str:
     return text
 
 
-def main() -> None:
+def cli_main() -> None:
     print(WELCOME)
-    try:
-        while True:
-            raw = input("You: ").strip()
-            if not raw:
-                print("Bot: Please type something, or 'bye' to exit.")
-                continue
+    while True:
+        try:
+            raw = input("You: ")
+        except KeyboardInterrupt:
+            print()
+            continue
+        except EOFError:
+            print("\nBot: Goodbye! Thanks for chatting. See you at DecodeLabs.")
+            return
 
-            text = normalize(raw)
-            reply = get_response(text)
+        raw = raw.strip()
+        if not raw:
+            print("Bot: Please type something, or 'bye' to exit.")
+            continue
 
-            if reply == EXIT_SENTINEL:
-                print("Bot: Goodbye! Thanks for chatting. See you at DecodeLabs.")
-                break
+        text = normalize(raw)
+        reply = get_response(text)
 
-            print(f"Bot: {reply}")
+        if reply == EXIT_SENTINEL:
+            print("Bot: Goodbye! Thanks for chatting. See you at DecodeLabs.")
+            return
 
-    except KeyboardInterrupt:
-        print("\nBot: Interrupted. Goodbye!")
-        sys.exit(0)
+        print(f"Bot: {reply}")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="DecodeLabs Project 1: Rule-Based Bot"
+    )
+    parser.add_argument(
+        "--gui",
+        action="store_true",
+        help="Launch the graphical bot interface",
+    )
+    args = parser.parse_args()
+
+    if args.gui:
+        from gui import run_gui
+
+        run_gui()
+    else:
+        cli_main()
 
 
 if __name__ == "__main__":

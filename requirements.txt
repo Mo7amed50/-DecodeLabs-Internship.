@@ -1,1 +1,2 @@
-# DecodeLabs Project 1 — stdlib only (no pip packages required)
+Flask>=3.0,<4.0
+# DecodeLabs Project 1 — standard library + Flask for the web UI.

@@ -11,13 +11,35 @@ A command-line chatbot that simulates basic conversation using explicit **if-eli
 ## Requirements
 
 - Python 3.8 or newer
-- No third-party packages (standard library only)
+- Flask for the web UI
 
 ## How to Run
 
+Install dependencies first:
+
 ```bash
 cd d:\Decode
+pip install -r requirements.txt
+```
+
+Run the CLI bot:
+
+```bash
 python chatbot.py
+```
+
+### Graphical user interface
+
+```bash
+cd d:\Decode
+python gui.py
+```
+
+or launch the GUI from the CLI entry point:
+
+```bash
+cd d:\Decode
+python chatbot.py --gui
 ```
 
 ## Project Structure
